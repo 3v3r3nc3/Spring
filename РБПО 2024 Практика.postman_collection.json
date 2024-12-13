@@ -1,0 +1,419 @@
+{
+	"info": {
+		"_postman_id": "af859387-ceef-4a82-8bec-ac3ff6a60f22",
+		"name": "РБПО 2024 Практика",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38188323"
+	},
+	"item": [
+		{
+			"name": "Registration_request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"budy\",\r\n  \"email\": \"welcometotheclub@budy.com\",\r\n  \"password\": \"qwerty\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login_request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"welcometotheclub@budy.com\",\r\n  \"password\": \"qwerty\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "License_build_request",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ3ZWxjb21ldG90aGVjbHViQGJ1ZHkuY29tIiwiYXV0aCI6WyJyZWFkIiwiUk9MRV9BRE1JTiIsIm1vZGlmaWNhdGlvbiJdLCJpYXQiOjE3MzQwNzgwNTUsImV4cCI6MTczNDA4MTY1NX0.6q_TgO6IfLauBGQlrXO8GWD--jxfHC4geWIcGMWFZxBKnljuyDb_HnNWd5y_A5i3",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"productId\": \"102\",\r\n  \"ownerId\": \"352\",\r\n  \"licenseTypeId\": \"102\",\r\n  \"count\":\"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/license/build",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"license",
+						"build"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "License_edit_request",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ3ZWxjb21ldG90aGVjbHViQGJ1ZHkuY29tIiwiYXV0aCI6WyJyZWFkIiwiUk9MRV9BRE1JTiIsIm1vZGlmaWNhdGlvbiJdLCJpYXQiOjE3MzQwNzY2OTgsImV4cCI6MTczNDA4MDI5OH0.oRQyD2-IK9eSnfhklAFkIitak6LlNJNEY-NgueUX_XNlbJoXrm_etweOmaPXhsmi",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":\"402\",\r\n    \"ownerId\":\"352\",\r\n    \"productId\":\"102\",\r\n    \"typeId\":\"102\",\r\n    \"isBlocked\":\"false\",\r\n    \"description\":\"KASPERSKY\",\r\n    \"deviceCount\":\"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/license/edit",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"license",
+						"edit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "License_activation_request",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ3ZWxjb21ldG90aGVjbHViQGJ1ZHkuY29tIiwiYXV0aCI6WyJyZWFkIiwiUk9MRV9BRE1JTiIsIm1vZGlmaWNhdGlvbiJdLCJpYXQiOjE3MzQwNzY2OTgsImV4cCI6MTczNDA4MDI5OH0.oRQyD2-IK9eSnfhklAFkIitak6LlNJNEY-NgueUX_XNlbJoXrm_etweOmaPXhsmi",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"activationCode\": \"c08d2c32-4227-440b-810c-9d2cbf7cae7c\",\r\n    \"name\": \"GMO\",\r\n    \"macAddress\": \"e2:0a:f6:54:1d:d3\",\r\n    \"id\":352\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/license/activation",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"license",
+						"activation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "License_info_request",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ3ZWxjb21ldG90aGVjbHViQGJ1ZHkuY29tIiwiYXV0aCI6WyJyZWFkIiwiUk9MRV9BRE1JTiIsIm1vZGlmaWNhdGlvbiJdLCJpYXQiOjE3MzQwNzgwNTUsImV4cCI6MTczNDA4MTY1NX0.6q_TgO6IfLauBGQlrXO8GWD--jxfHC4geWIcGMWFZxBKnljuyDb_HnNWd5y_A5i3",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"GMO\",\r\n    \"macAddress\":\"e2:0a:f6:54:1d:d3\",\r\n    \"activateCode\":\"c08d2c32-4227-440b-810c-9d2cbf7cae7c\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/license/info",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"license",
+						"info"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Licence_renew_request",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ3ZWxjb21ldG90aGVjbHViQGJ1ZHkuY29tIiwiYXV0aCI6WyJyZWFkIiwiUk9MRV9BRE1JTiIsIm1vZGlmaWNhdGlvbiJdLCJpYXQiOjE3MzQwNzgwNTUsImV4cCI6MTczNDA4MTY1NX0.6q_TgO6IfLauBGQlrXO8GWD--jxfHC4geWIcGMWFZxBKnljuyDb_HnNWd5y_A5i3",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"activationCode\": \"16137db6-39d7-42cb-b2cc-1c7452690b21\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/license/renew",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"license",
+						"renew"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LicenseType_build_request",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ3ZWxjb21ldG90aGVjbHViQGJ1ZHkuY29tIiwiYXV0aCI6WyJyZWFkIiwiUk9MRV9BRE1JTiIsIm1vZGlmaWNhdGlvbiJdLCJpYXQiOjE3MzQwNzY2OTgsImV4cCI6MTczNDA4MDI5OH0.oRQyD2-IK9eSnfhklAFkIitak6LlNJNEY-NgueUX_XNlbJoXrm_etweOmaPXhsmi",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"DrWebLicense\",\r\n    \"duration\":\"30\",\r\n    \"description\":\"licenseForDrWeb\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/type/build",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"type",
+						"build"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LicenseType_edit_request",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ3ZWxjb21ldG90aGVjbHViQGJ1ZHkuY29tIiwiYXV0aCI6WyJyZWFkIiwiUk9MRV9BRE1JTiIsIm1vZGlmaWNhdGlvbiJdLCJpYXQiOjE3MzQwNzgwNTUsImV4cCI6MTczNDA4MTY1NX0.6q_TgO6IfLauBGQlrXO8GWD--jxfHC4geWIcGMWFZxBKnljuyDb_HnNWd5y_A5i3",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":\"102\",\r\n    \"name\":\"kasperskyLicense\",\r\n    \"duration\":\"30\",\r\n    \"description\":\"licenseForKaspersky\"\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/type/edit",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"type",
+						"edit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Product_build_request",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ3ZWxjb21ldG90aGVjbHViQGJ1ZHkuY29tIiwiYXV0aCI6WyJyZWFkIiwiUk9MRV9VU0VSIl0sImlhdCI6MTczNDA3NzkwMiwiZXhwIjoxNzM0MDgxNTAyfQ.cH4iPey0bN-jhSrrJcbaXDjvFV2zaEarbfaPmZ_758xeW11AsKgFDojGd0WxeeFw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"DrWeb\",\r\n    \"isBlocked\":\"false\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/products/build",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"build"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Product_edit_request",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ3ZWxjb21ldG90aGVjbHViQGJ1ZHkuY29tIiwiYXV0aCI6WyJyZWFkIiwiUk9MRV9BRE1JTiIsIm1vZGlmaWNhdGlvbiJdLCJpYXQiOjE3MzQwNzgwNTUsImV4cCI6MTczNDA4MTY1NX0.6q_TgO6IfLauBGQlrXO8GWD--jxfHC4geWIcGMWFZxBKnljuyDb_HnNWd5y_A5i3",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"productId\":\"102\",\r\n    \"name\":\"KASPERSKY\",\r\n    \"isBlocked\":\"false\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/products/edit",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"edit"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
