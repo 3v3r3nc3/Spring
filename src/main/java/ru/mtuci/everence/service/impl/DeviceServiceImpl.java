@@ -7,7 +7,7 @@ import ru.mtuci.everence.repository.DeviceRepository;
 
 import java.util.Optional;
 
-
+//TODO: 1. registerOrUpdateDevice - откуда клиент получит id записи из вашей базы данных?
 
 @Service
 public class DeviceServiceImpl {
