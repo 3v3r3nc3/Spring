@@ -17,6 +17,8 @@ import ru.mtuci.everence.service.impl.DeviceServiceImpl;
 import ru.mtuci.everence.service.impl.LicenseServiceImpl;
 import ru.mtuci.everence.service.impl.UserDetailsServiceImpl;
 
+//TODO: 1. getDeviceId - это идентификатор записи в вашей БД?
+//TODO: 2. Добавьте в контроллеры больше операций
 
 @RestController
 @RequestMapping("/license")

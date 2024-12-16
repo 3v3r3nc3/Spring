@@ -9,6 +9,7 @@ import ru.mtuci.everence.repository.LicenseHistoryRepository;
 
 import java.util.Date;
 
+//TODO: 1. Как получить историю?
 
 @Service
 public class LicenseHistoryServiceImpl {
