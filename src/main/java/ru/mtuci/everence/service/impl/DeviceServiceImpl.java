@@ -7,7 +7,7 @@ import ru.mtuci.everence.repository.DeviceRepository;
 
 import java.util.Optional;
 
-
+//TODO: 1. registerOrUpdateDevice - откуда клиент получит id записи из вашей базы данных?
 
 @Service
 public class DeviceServiceImpl {
@@ -17,8 +17,8 @@ public class DeviceServiceImpl {
         this.deviceRepository = deviceRepository;
     }
 
-    public Optional<DBDevice> getDeviceByIdAndUser(ApplicationUser user, Long id) {
-        return deviceRepository.findByIdAndUser(id, user);
+    public Optional<DBDevice> getDeviceByMacAndUser(ApplicationUser user, String mac) {
+        return deviceRepository.findByMacAddressAndUser(mac, user);
     }
 
     public Optional<DBDevice> getDeviceByInfo(ApplicationUser user, String mac_address, String name) {
@@ -30,8 +30,8 @@ public class DeviceServiceImpl {
         lastDevice.ifPresent(deviceRepository::delete);
     }
 
-    public DBDevice registerOrUpdateDevice(String mac, String name, ApplicationUser user, Long deviceId) {
-        DBDevice newDevice = getDeviceByIdAndUser(user, deviceId)
+    public DBDevice registerOrUpdateDevice(String mac, String name, ApplicationUser user) {
+        DBDevice newDevice = getDeviceByMacAndUser(user, mac)
                 .orElse(new DBDevice());
 
         newDevice.setName(name);

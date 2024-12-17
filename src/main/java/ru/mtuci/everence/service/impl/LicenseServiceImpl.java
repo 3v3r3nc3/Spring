@@ -11,6 +11,12 @@ import java.security.*;
 import java.util.stream.Collectors;
 
 
+//TODO: 1. Некоторые проверки дублируются контроллером
+//TODO: 2. licenseRepository.findByIdInAndCode кажется лишним, т.к. applicationDeviceLicensesList уже содержит информацию по связным лицензиям
+//TODO: 3. createTicket на вид содержит лишние проверки
+//TODO: 4. Почему status не входит в подпись тикета?
+//TODO: 5. При активации лицензии дата первой активации никак не влияет на дату окончания
+//TODO: 6. Есть дублирующиеся проверки, целесообразно их вынести в отдельный метод
 
 @Service
 public class LicenseServiceImpl {
@@ -24,7 +30,8 @@ public class LicenseServiceImpl {
 
     public LicenseServiceImpl(LicenseRepository licenseRepository, LicenseTypeServiceImpl licenseTypeService,
                               ProductServiceImpl productService, DeviceLicenseServiceImpl deviceLicenseService,
-                              LicenseHistoryServiceImpl licenseHistoryService, UserDetailsServiceImpl userDetailsServiceImpl, DeviceServiceImpl deviceServiceImpl) {
+                              LicenseHistoryServiceImpl licenseHistoryService, UserDetailsServiceImpl userDetailsServiceImpl,
+                              DeviceServiceImpl deviceServiceImpl) {
         this.licenseRepository = licenseRepository;
         this.licenseTypeService = licenseTypeService;
         this.productService = productService;
@@ -119,30 +126,34 @@ public class LicenseServiceImpl {
         Ticket ticket = new Ticket();
         ticket.setCurrentDate(new Date());
 
-        if (user != null) {
-            ticket.setUserId(user.getId());
-        }
+
+        ticket.setUserId(user.getId());
+
 
         if (device != null) {
             ticket.setDeviceId(device.getId());
         }
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.HOUR, 1);
-        ticket.setLifetime(calendar.getTime());
+        ticket.setLifetime(addOneHourToCurrentDate());
 
-        if (license != null) {
-            ticket.setActivationDate(license.getFirstActivationDate());
-            ticket.setExpirationDate(license.getEndingDate());
-            ticket.setLicenseBlocked(license.isBlocked());
-        }
+        ticket.setActivationDate(license.getFirstActivationDate());
+        ticket.setExpirationDate(license.getEndingDate());
+        ticket.setLicenseBlocked(license.isBlocked());
 
+        ticket.setStatus(status);
         ticket.setInfo(info);
         ticket.setDigitalSignature(makeSignature(ticket));
-        ticket.setStatus(status);
+
 
         return ticket;
     }
+
+    private Date addOneHourToCurrentDate() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.HOUR, 1);
+        return calendar.getTime();
+    }
+
 
 
     public Ticket activateLicense(String code, DBDevice device, ApplicationUser user) {
@@ -170,9 +181,10 @@ public class LicenseServiceImpl {
 
         if (newLicense.getFirstActivationDate() == null) {
             Calendar calendar = Calendar.getInstance();
+            newLicense.setFirstActivationDate(calendar.getTime());
             calendar.add(Calendar.DAY_OF_MONTH, Math.toIntExact(newLicense.getDuration()));
             newLicense.setEndingDate(calendar.getTime());
-            newLicense.setFirstActivationDate(new Date());
+
             newLicense.setUser(user);
         }
 
@@ -184,41 +196,34 @@ public class LicenseServiceImpl {
     }
 
 
-    public String updateLicense(Long id, Long ownerId, Long productId, Long typeId, Boolean isBlocked, String description, Long deviceCount) {
-        Optional<DBLicense> license = getLicenseById(id);
-        if (license.isEmpty()) {
-            return "License Not Found";
-        }
+    public String updateLicense(Long id, Long ownerId, Long productId, Long typeId,
+                                Boolean isBlocked, String description, Long deviceCount) {
+        DBLicense license = getLicenseById(id)
+                .orElseThrow(() -> new RuntimeException("License Not Found"));
 
-        Optional<DBProduct> product = productService.getProductById(productId);
-        if (product.isEmpty()) {
-            return "Product Not Found";
-        }
+        DBProduct product = productService.getProductById(productId)
+                .orElseThrow(() -> new RuntimeException("Product Not Found"));
 
-        Optional<DBLicenseType> licenseType = licenseTypeService.getLicenseTypeById(typeId);
-        if (licenseType.isEmpty()) {
-            return "License Type Not Found";
-        }
+        DBLicenseType licenseType = licenseTypeService.getLicenseTypeById(typeId)
+                .orElseThrow(() -> new RuntimeException("License Type Not Found"));
 
-        Optional<ApplicationUser> owner = userDetailsServiceImpl.getUserById(ownerId);
-        if (owner.isEmpty()) {
-            return "Owner Not Found";
-        }
+        ApplicationUser owner = userDetailsServiceImpl.getUserById(ownerId)
+                .orElseThrow(() -> new RuntimeException("Owner Not Found"));
 
-        DBLicense newLicense = license.get();
-        newLicense.setCode(String.valueOf(UUID.randomUUID()));
-        newLicense.setProduct(product.get());
-        newLicense.setLicenseType(licenseType.get());
-        newLicense.setDuration(licenseType.get().getDefaultDuration());
-        newLicense.setBlocked(isBlocked);
-        newLicense.setOwnerId(owner.get());
-        newLicense.setDescription(description);
-        newLicense.setDeviceCount(deviceCount);
+        license.setCode(String.valueOf(UUID.randomUUID()));
+        license.setProduct(product);
+        license.setLicenseType(licenseType);
+        license.setDuration(licenseType.getDefaultDuration());
+        license.setBlocked(isBlocked);
+        license.setOwnerId(owner);
+        license.setDescription(description);
+        license.setDeviceCount(deviceCount);
 
-        licenseRepository.save(newLicense);
+        licenseRepository.save(license);
 
         return "OK";
     }
+
 
 
 
@@ -232,7 +237,8 @@ public class LicenseServiceImpl {
         }
 
         DBLicense newLicense = license.get();
-        if (newLicense.isBlocked() || newLicense.getEndingDate() == null || new Date().after(newLicense.getEndingDate()) || !Objects.equals(newLicense.getOwnerId().getId(), user.getId()) || newLicense.getFirstActivationDate() == null) {
+        if (newLicense.isBlocked() || newLicense.getEndingDate() == null || new Date().after(newLicense.getEndingDate())
+                || !Objects.equals(newLicense.getOwnerId().getId(), user.getId()) || newLicense.getFirstActivationDate() == null) {
             ticket.setInfo("It is not possible to renew the license");
             ticket.setStatus("Error");
             return ticket;

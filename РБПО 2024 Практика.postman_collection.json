@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"username\": \"budy\",\r\n  \"email\": \"welcometotheclub@budy.com\",\r\n  \"password\": \"qwerty\"\r\n}",
+					"raw": "{\r\n  \"username\": \"somebudy\",\r\n  \"email\": \"welcometotheclub@somebudy.com\",\r\n  \"password\": \"qwerty\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -21,12 +21,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/auth/register",
+					"raw": "http://localhost:8383/auth/register",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8383",
 					"path": [
 						"auth",
 						"register"
@@ -50,12 +50,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/auth/login",
+					"raw": "http://localhost:8383/auth/login",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8383",
 					"path": [
 						"auth",
 						"login"
@@ -72,7 +72,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ3ZWxjb21ldG90aGVjbHViQGJ1ZHkuY29tIiwiYXV0aCI6WyJyZWFkIiwiUk9MRV9BRE1JTiIsIm1vZGlmaWNhdGlvbiJdLCJpYXQiOjE3MzQwNzgwNTUsImV4cCI6MTczNDA4MTY1NX0.6q_TgO6IfLauBGQlrXO8GWD--jxfHC4geWIcGMWFZxBKnljuyDb_HnNWd5y_A5i3",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ3ZWxjb21ldG90aGVjbHViQGJ1ZHkuY29tIiwiYXV0aCI6WyJyZWFkIiwiUk9MRV9BRE1JTiIsIm1vZGlmaWNhdGlvbiJdLCJpYXQiOjE3MzQ0Njk0ODIsImV4cCI6MTczNDQ3MzA4Mn0.y0V1y64A6z1WlDAZTLJhknxAmsbV6VFHSXAH2ljP416Bi4nP8baesVNNtjlPt22G",
 							"type": "string"
 						}
 					]
@@ -81,7 +81,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"productId\": \"102\",\r\n  \"ownerId\": \"352\",\r\n  \"licenseTypeId\": \"102\",\r\n  \"count\":\"1\"\r\n}",
+					"raw": "{\r\n  \"productId\": \"102\",\r\n  \"ownerId\": \"352\",\r\n  \"licenseTypeId\":\"12\",\r\n  \"count\":\"1\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -89,12 +89,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/license/build",
+					"raw": "http://localhost:8383/license/build",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8383",
 					"path": [
 						"license",
 						"build"
@@ -111,7 +111,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ3ZWxjb21ldG90aGVjbHViQGJ1ZHkuY29tIiwiYXV0aCI6WyJyZWFkIiwiUk9MRV9BRE1JTiIsIm1vZGlmaWNhdGlvbiJdLCJpYXQiOjE3MzQwNzY2OTgsImV4cCI6MTczNDA4MDI5OH0.oRQyD2-IK9eSnfhklAFkIitak6LlNJNEY-NgueUX_XNlbJoXrm_etweOmaPXhsmi",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ3ZWxjb21ldG90aGVjbHViQGJ1ZHkuY29tIiwiYXV0aCI6WyJyZWFkIiwiUk9MRV9BRE1JTiIsIm1vZGlmaWNhdGlvbiJdLCJpYXQiOjE3MzQ0NjY5MDksImV4cCI6MTczNDQ3MDUwOX0.P3ChtPxVE2NxTKlvS8N1EfZGaK3fbVQXq0ZGrHlfn8-YbBjYNBM8NpKy8g_xShA8",
 							"type": "string"
 						}
 					]
@@ -128,12 +128,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/license/edit",
+					"raw": "http://localhost:8383/license/edit",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8383",
 					"path": [
 						"license",
 						"edit"
@@ -150,7 +150,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ3ZWxjb21ldG90aGVjbHViQGJ1ZHkuY29tIiwiYXV0aCI6WyJyZWFkIiwiUk9MRV9BRE1JTiIsIm1vZGlmaWNhdGlvbiJdLCJpYXQiOjE3MzQwNzY2OTgsImV4cCI6MTczNDA4MDI5OH0.oRQyD2-IK9eSnfhklAFkIitak6LlNJNEY-NgueUX_XNlbJoXrm_etweOmaPXhsmi",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ3ZWxjb21ldG90aGVjbHViQHNvbWVidWR5LmNvbSIsImF1dGgiOlsicmVhZCIsIlJPTEVfVVNFUiJdLCJpYXQiOjE3MzQxMTE1MDAsImV4cCI6MTczNDExNTEwMH0.1QT40Amw2BZCeK9cVbLbUuK9wJjddBcYp7qbznShem0jWUdCB_TuIuOyPsmJcoQV",
 							"type": "string"
 						}
 					]
@@ -159,7 +159,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"activationCode\": \"c08d2c32-4227-440b-810c-9d2cbf7cae7c\",\r\n    \"name\": \"GMO\",\r\n    \"macAddress\": \"e2:0a:f6:54:1d:d3\",\r\n    \"id\":352\r\n}",
+					"raw": "{\r\n    \"activationCode\": \"35b02202-265a-4e2d-b060-a9e07dd128ef\",\r\n    \"name\": \"someName\",\r\n    \"macAddress\": \"12:CD:12:GH:IJ:KL\",\r\n    \"id\":0\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -167,12 +167,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/license/activation",
+					"raw": "http://localhost:8383/license/activation",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8383",
 					"path": [
 						"license",
 						"activation"
@@ -189,7 +189,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ3ZWxjb21ldG90aGVjbHViQGJ1ZHkuY29tIiwiYXV0aCI6WyJyZWFkIiwiUk9MRV9BRE1JTiIsIm1vZGlmaWNhdGlvbiJdLCJpYXQiOjE3MzQwNzgwNTUsImV4cCI6MTczNDA4MTY1NX0.6q_TgO6IfLauBGQlrXO8GWD--jxfHC4geWIcGMWFZxBKnljuyDb_HnNWd5y_A5i3",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ3ZWxjb21ldG90aGVjbHViQGJ1ZHkuY29tIiwiYXV0aCI6WyJyZWFkIiwiUk9MRV9BRE1JTiIsIm1vZGlmaWNhdGlvbiJdLCJpYXQiOjE3MzQxNjQ1NDAsImV4cCI6MTczNDE2ODE0MH0.LWS6m5mTt9LXx-Cz96MeyzSDL7XUj9fXAEqFj1SHg7W796UxfY1kGarpka5bcbYQ",
 							"type": "string"
 						}
 					]
@@ -198,7 +198,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\":\"GMO\",\r\n    \"macAddress\":\"e2:0a:f6:54:1d:d3\",\r\n    \"activateCode\":\"c08d2c32-4227-440b-810c-9d2cbf7cae7c\"\r\n}",
+					"raw": "{\r\n    \"activateCode\": \"35b02202-265a-4e2d-b060-a9e07dd128ef\",\r\n    \"name\": \"someName\",\r\n    \"macAddress\": \"12:CD:12:GH:IJ:KL\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -206,12 +206,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/license/info",
+					"raw": "http://localhost:8383/license/info",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8383",
 					"path": [
 						"license",
 						"info"
@@ -228,7 +228,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ3ZWxjb21ldG90aGVjbHViQGJ1ZHkuY29tIiwiYXV0aCI6WyJyZWFkIiwiUk9MRV9BRE1JTiIsIm1vZGlmaWNhdGlvbiJdLCJpYXQiOjE3MzQwNzgwNTUsImV4cCI6MTczNDA4MTY1NX0.6q_TgO6IfLauBGQlrXO8GWD--jxfHC4geWIcGMWFZxBKnljuyDb_HnNWd5y_A5i3",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ3ZWxjb21ldG90aGVjbHViQGJ1ZHkuY29tIiwiYXV0aCI6WyJyZWFkIiwiUk9MRV9BRE1JTiIsIm1vZGlmaWNhdGlvbiJdLCJpYXQiOjE3MzQxMDk0MzIsImV4cCI6MTczNDExMzAzMn0.B6NB6ME5Cj3k98ezdvgTQmjjKtFAAp9Wt7T_L09ta-YMidhbOeaVVRPdT_F9T7PF",
 							"type": "string"
 						}
 					]
@@ -237,7 +237,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"activationCode\": \"16137db6-39d7-42cb-b2cc-1c7452690b21\"\r\n}",
+					"raw": "{\r\n    \"activateCode\": \"d93db894-4fbb-41bf-80e6-d9ba1a72781f\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -245,12 +245,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/license/renew",
+					"raw": "http://localhost:8383/license/renew",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8383",
 					"path": [
 						"license",
 						"renew"
@@ -267,7 +267,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ3ZWxjb21ldG90aGVjbHViQGJ1ZHkuY29tIiwiYXV0aCI6WyJyZWFkIiwiUk9MRV9BRE1JTiIsIm1vZGlmaWNhdGlvbiJdLCJpYXQiOjE3MzQwNzY2OTgsImV4cCI6MTczNDA4MDI5OH0.oRQyD2-IK9eSnfhklAFkIitak6LlNJNEY-NgueUX_XNlbJoXrm_etweOmaPXhsmi",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ3ZWxjb21ldG90aGVjbHViQGJ1ZHkuY29tIiwiYXV0aCI6WyJyZWFkIiwiUk9MRV9BRE1JTiIsIm1vZGlmaWNhdGlvbiJdLCJpYXQiOjE3MzQxNjQ1NDAsImV4cCI6MTczNDE2ODE0MH0.LWS6m5mTt9LXx-Cz96MeyzSDL7XUj9fXAEqFj1SHg7W796UxfY1kGarpka5bcbYQ",
 							"type": "string"
 						}
 					]
@@ -284,12 +284,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/type/build",
+					"raw": "http://localhost:8383/type/build",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8383",
 					"path": [
 						"type",
 						"build"
@@ -323,12 +323,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/type/edit",
+					"raw": "http://localhost:8383/type/edit",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8383",
 					"path": [
 						"type",
 						"edit"
@@ -345,7 +345,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ3ZWxjb21ldG90aGVjbHViQGJ1ZHkuY29tIiwiYXV0aCI6WyJyZWFkIiwiUk9MRV9VU0VSIl0sImlhdCI6MTczNDA3NzkwMiwiZXhwIjoxNzM0MDgxNTAyfQ.cH4iPey0bN-jhSrrJcbaXDjvFV2zaEarbfaPmZ_758xeW11AsKgFDojGd0WxeeFw",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ3ZWxjb21ldG90aGVjbHViQGJ1ZHkuY29tIiwiYXV0aCI6WyJyZWFkIiwiUk9MRV9BRE1JTiIsIm1vZGlmaWNhdGlvbiJdLCJpYXQiOjE3MzQxNjQ1NDAsImV4cCI6MTczNDE2ODE0MH0.LWS6m5mTt9LXx-Cz96MeyzSDL7XUj9fXAEqFj1SHg7W796UxfY1kGarpka5bcbYQ",
 							"type": "string"
 						}
 					]
@@ -362,12 +362,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/products/build",
+					"raw": "http://localhost:8383/products/build",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8383",
 					"path": [
 						"products",
 						"build"
@@ -401,15 +401,54 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/products/edit",
+					"raw": "http://localhost:8383/products/edit",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8383",
 					"path": [
 						"products",
 						"edit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "History_view",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ3ZWxjb21ldG90aGVjbHViQGJ1ZHkuY29tIiwiYXV0aCI6WyJyZWFkIiwiUk9MRV9BRE1JTiIsIm1vZGlmaWNhdGlvbiJdLCJpYXQiOjE3MzQ0Njc5MDMsImV4cCI6MTczNDQ3MTUwM30.5_PlhEftfw0smkr15_q-T0lf5a6VNcMISN_3DIXhunn0xIQqapLZGVpaqkVuFVsU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"first\":\"2024-12-13\",\r\n    \"last\":\"2024-12-18\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8383/history/view",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8383",
+					"path": [
+						"history",
+						"view"
 					]
 				}
 			},

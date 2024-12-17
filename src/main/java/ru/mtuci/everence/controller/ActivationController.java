@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.mtuci.everence.configuration.JwtTokenProvider;
-import ru.mtuci.everence.model.licenseActivationRequest;
+import ru.mtuci.everence.model.LicenseActivationRequest;
 import ru.mtuci.everence.model.DBDevice;
 import ru.mtuci.everence.model.ApplicationUser;
 import ru.mtuci.everence.model.Ticket;
@@ -17,6 +17,8 @@ import ru.mtuci.everence.service.impl.DeviceServiceImpl;
 import ru.mtuci.everence.service.impl.LicenseServiceImpl;
 import ru.mtuci.everence.service.impl.UserDetailsServiceImpl;
 
+//TODO: 1. getDeviceId - это идентификатор записи в вашей БД?
+//TODO: 2. Добавьте в контроллеры больше операций
 
 @RestController
 @RequestMapping("/license")
@@ -29,11 +31,11 @@ public class ActivationController {
     private final LicenseServiceImpl licenseService;
 
     @PostMapping("/activation")
-    public ResponseEntity<?> activateLicense(@RequestBody licenseActivationRequest request, HttpServletRequest req) {
+    public ResponseEntity<?> activateLicense(@RequestBody LicenseActivationRequest request, HttpServletRequest req) {
         try {
             String email = jwtTokenProvider.getUsername(req.getHeader("Authorization").substring(7));
             ApplicationUser user = userDetailsService.getUserByEmail(email).get();
-            DBDevice device = deviceService.registerOrUpdateDevice(request.getMacAddress(), request.getName(), user, request.getDeviceId());
+            DBDevice device = deviceService.registerOrUpdateDevice(request.getMacAddress(), request.getName(), user);
 
             Ticket ticket = licenseService.activateLicense(request.getActivationCode(), device, user);
 

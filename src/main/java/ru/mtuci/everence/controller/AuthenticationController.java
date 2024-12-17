@@ -1,12 +1,5 @@
 package ru.mtuci.everence.controller;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +9,14 @@ import ru.mtuci.everence.model.ApplicationUser;
 import ru.mtuci.everence.model.LoginRequest;
 import ru.mtuci.everence.model.AuthenticationResponse;
 import ru.mtuci.everence.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 
 @RestController
 @RequestMapping("/auth")
@@ -29,24 +30,19 @@ public class AuthenticationController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         try {
-            String email = request.getEmail();
-
-            ApplicationUser user = userRepository.findByEmail(email)
+            ApplicationUser user = userRepository.findByEmail(request.getEmail())
                     .orElseThrow(() -> new UsernameNotFoundException("No such user"));
 
-            authenticationManager
-                    .authenticate(
-                            new UsernamePasswordAuthenticationToken(
-                                    email, request.getPassword())
-                    );
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
+            );
 
-            String token = jwtTokenProvider
-                    .createToken(email, user.getRole().getGrantedAuthorities());
+            String token = jwtTokenProvider.createToken(request.getEmail(), user.getRole().getGrantedAuthorities());
 
-            return ResponseEntity.ok(new AuthenticationResponse(email, token));
+            return ResponseEntity.ok(new AuthenticationResponse(request.getEmail(), token));
         } catch (AuthenticationException ex) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body("Email or password is incorrect");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Email or password is incorrect");
         }
     }
+
 }
