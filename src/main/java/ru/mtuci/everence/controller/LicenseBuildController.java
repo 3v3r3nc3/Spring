@@ -32,7 +32,25 @@ public class LicenseBuildController {
             Long ownerId = request.getOwnerId();
             Long licenseTypeId = request.getLicenseTypeId();
 
+            if (productService.getProductById(productId).isEmpty()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("There is no product with this ID.");
+            }
 
+            if (productService.getProductById(productId).get().isBlocked()){
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("This product is missing.");
+            }
+
+            if (userService.getUserById(ownerId).isEmpty()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("The owner with this ID was not found");
+            }
+
+            if (licenseTypeService.getLicenseTypeById(licenseTypeId).isEmpty()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("There is no type license with the specified ID.");
+            }
 
             String email = jwtTokenProvider.getUsername(req.getHeader("Authorization").substring(7));
             ApplicationUser user = userDetailsService.getUserByEmail(email).get();

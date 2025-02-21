@@ -10,9 +10,16 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+
 jwt:
 
   secret: ${JWT_SECRET}
   expiration: 3600000
+
 server:
-  port: 8383
+  port: 8080
+  ssl:
+    key-store-type: JKS
+    key-store: classpath:server.jks
+    key-store-password: ${SERVERPASS}
+    key-alias: server

@@ -17,8 +17,6 @@ import ru.mtuci.everence.service.impl.DeviceServiceImpl;
 import ru.mtuci.everence.service.impl.LicenseServiceImpl;
 import ru.mtuci.everence.service.impl.UserDetailsServiceImpl;
 
-//TODO: 1. getDeviceId - это идентификатор записи в вашей БД?
-//TODO: 2. Добавьте в контроллеры больше операций
 
 @RestController
 @RequestMapping("/license")
@@ -35,7 +33,7 @@ public class ActivationController {
         try {
             String email = jwtTokenProvider.getUsername(req.getHeader("Authorization").substring(7));
             ApplicationUser user = userDetailsService.getUserByEmail(email).get();
-            DBDevice device = deviceService.registerOrUpdateDevice(request.getMacAddress(), request.getName(), user);
+            DBDevice device = deviceService.registerOrUpdateDevice(request.getMacAddress(), request.getName(), user, request.getDeviceId());
 
             Ticket ticket = licenseService.activateLicense(request.getActivationCode(), device, user);
 
