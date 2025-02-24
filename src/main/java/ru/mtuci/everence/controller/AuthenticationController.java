@@ -11,11 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.mtuci.everence.configuration.JwtTokenProvider;
 import ru.mtuci.everence.model.ApplicationUser;
-import ru.mtuci.everence.model.LoginRequest;
+import ru.mtuci.everence.model.AuthenticationRequest;
 import ru.mtuci.everence.model.AuthenticationResponse;
+import ru.mtuci.everence.model.TokenResponse;
 import ru.mtuci.everence.repository.UserRepository;
+import ru.mtuci.everence.service.impl.TokenService;
 
 @RestController
 @RequestMapping("/auth")
@@ -24,15 +25,15 @@ public class AuthenticationController {
 
     private final UserRepository userRepository;
     private final AuthenticationManager authenticationManager;
-    private final JwtTokenProvider jwtTokenProvider;
+    private final TokenService tokenService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
+    public ResponseEntity<?> login(@RequestBody AuthenticationRequest request) {
         try {
             String email = request.getEmail();
 
             ApplicationUser user = userRepository.findByEmail(email)
-                    .orElseThrow(() -> new UsernameNotFoundException("No such user"));
+                    .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
             authenticationManager
                     .authenticate(
@@ -40,13 +41,12 @@ public class AuthenticationController {
                                     email, request.getPassword())
                     );
 
-            String token = jwtTokenProvider
-                    .createToken(email, user.getRole().getGrantedAuthorities());
+            TokenResponse tokenResponse = tokenService.issueTokenPair(email, request.getDeviceId(), user.getRole().getGrantedAuthorities());
 
-            return ResponseEntity.ok(new AuthenticationResponse(email, token));
+            return ResponseEntity.ok(new AuthenticationResponse(email, tokenResponse, user.getUsername()));
         } catch (AuthenticationException ex) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body("Email or password is incorrect");
+                    .body("Invalid email or password");
         }
     }
 }
