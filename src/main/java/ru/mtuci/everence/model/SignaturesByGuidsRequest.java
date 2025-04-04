@@ -2,13 +2,14 @@ package ru.mtuci.everence.model;
 
 import lombok.*;
 
+import java.util.List;
+import java.util.UUID;
+
 @Data
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthenticationRequest {
-    private String email;
-    private String password;
-    private Long deviceId;
+public class SignaturesByGuidsRequest {
+    private List<UUID> guids;
 }

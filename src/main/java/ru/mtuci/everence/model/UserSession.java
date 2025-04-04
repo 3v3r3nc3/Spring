@@ -37,4 +37,3 @@ public class UserSession {
     @Version
     private Long version;
 }
-

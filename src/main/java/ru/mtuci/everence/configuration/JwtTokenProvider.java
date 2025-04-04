@@ -80,26 +80,29 @@ public class JwtTokenProvider {
                 .getBody();
         return claims.get("token_type", String.class);
     }
-
     public boolean validateToken(String token) {
         try {
             Jwts.parserBuilder()
                     .setSigningKey(getSigningKey())
                     .build()
                     .parseClaimsJws(token);
+
             return true;
         } catch (Exception e) {
             return false;
         }
+
     }
 
     public String getUsername(String token) {
+        System.out.println(getAuthorities(token));
         return Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())
                 .build()
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
+
     }
 
     public Set<GrantedAuthority> getAuthorities(String token) {
@@ -119,5 +122,4 @@ public class JwtTokenProvider {
         return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
     }
 }
-
 

@@ -10,34 +10,32 @@ import java.util.Optional;
 
 @Service
 public class ProductServiceImpl {
-    private final ProductRepository productRepository;
+    private final ProductRepository repository;
 
-    public ProductServiceImpl(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    public ProductServiceImpl(ProductRepository repository) {
+        this.repository = repository;
     }
 
     public Optional<DBProduct> getProductById(Long id) {
-        return productRepository.findById(id);
+        return repository.findById(id);
     }
 
     public String updateProduct(Long id, String name, Boolean isBlocked) {
-        Optional<DBProduct> product = getProductById(id);
-        if (product.isEmpty()) {
-            return "Product Not Found";
-        }
-
-        DBProduct newProduct = product.get();
-        newProduct.setName(name);
-        newProduct.setBlocked(isBlocked);
-        productRepository.save(newProduct);
-        return "OK";
+        return getProductById(id)
+                .map(product -> {
+                    product.setName(name);
+                    product.setBlocked(isBlocked);
+                    repository.save(product);
+                    return "OK";
+                })
+                .orElse("Product Not Found");
     }
 
-    public Long createProduct(String name, Boolean isBlocked){
+    public Long createProduct(String name, Boolean isBlocked) {
         DBProduct product = new DBProduct();
-        product.setBlocked(isBlocked);
         product.setName(name);
-        productRepository.save(product);
-        return productRepository.findTopByOrderByIdDesc().get().getId();
+        product.setBlocked(isBlocked);
+        repository.save(product);
+        return repository.findTopByOrderByIdDesc().map(DBProduct::getId).orElse(null);
     }
 }

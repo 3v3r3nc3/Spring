@@ -7,8 +7,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthenticationRequest {
-    private String email;
-    private String password;
+public class TokenRefreshRequest {
+    private String refreshToken;
     private Long deviceId;
 }

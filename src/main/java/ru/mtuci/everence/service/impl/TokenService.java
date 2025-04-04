@@ -11,7 +11,11 @@ import ru.mtuci.everence.model.UserSession;
 import ru.mtuci.everence.repository.UserRepository;
 import ru.mtuci.everence.repository.UserSessionRepository;
 
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
+
+import java.util.Set;
 
 @Service
 public class TokenService {
@@ -30,30 +34,34 @@ public class TokenService {
         String accessToken = jwtTokenProvider.createAccessToken(email, authorities);
         String refreshToken = jwtTokenProvider.createRefreshToken(email, deviceId);
 
-        Long currentTimeMillis = System.currentTimeMillis();
-        Date accessTokenExpiry = new Date(currentTimeMillis + 5 * 60 * 1000);
-        Date refreshTokenExpiry = new Date(currentTimeMillis + 24 * 60 * 60 * 1000);
-
-        UserSession newSession = new UserSession();
-        newSession.setEmail(email);
-        newSession.setDeviceId(deviceId);
-        newSession.setAccessToken(accessToken);
-        newSession.setRefreshToken(refreshToken);
-        newSession.setAccessTokenExpiry(accessTokenExpiry);
-        newSession.setRefreshTokenExpiry(refreshTokenExpiry);
-        newSession.setStatus(SessionStatus.ACTIVE);
-
+        UserSession newSession = createSession(email, deviceId, accessToken, refreshToken);
         userSessionRepository.save(newSession);
 
         return new TokenResponse(accessToken, refreshToken);
     }
 
+    private UserSession createSession(String email, Long deviceId, String accessToken, String refreshToken) {
+        Long currentTimeMillis = System.currentTimeMillis();
+
+        UserSession session = new UserSession();
+        session.setEmail(email);
+        session.setDeviceId(deviceId);
+        session.setAccessToken(accessToken);
+        session.setRefreshToken(refreshToken);
+        session.setAccessTokenExpiry(new Date(currentTimeMillis + 5 * 60 * 1000)); // 5 минут
+        session.setRefreshTokenExpiry(new Date(currentTimeMillis + 24 * 60 * 60 * 1000)); // 24 часа
+        session.setStatus(SessionStatus.ACTIVE);
+
+        return session;
+    }
+
     public TokenResponse refreshTokenPair(Long deviceId, String refreshToken) {
         UserSession session = userSessionRepository.findByRefreshToken(refreshToken).orElse(null);
 
-        if (session == null || session.getStatus() != SessionStatus.ACTIVE
-                || !Objects.equals(session.getDeviceId(), deviceId)) {
-            blockAllSessionsForUser(session.getEmail());
+        if (isInvalidSession(session, deviceId)) {
+            if (session != null) {
+                blockAllSessionsForUser(session.getEmail());
+            }
             return null;
         }
 
@@ -64,6 +72,10 @@ public class TokenService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         return issueTokenPair(session.getEmail(), deviceId, user.getRole().getGrantedAuthorities());
+    }
+
+    private boolean isInvalidSession(UserSession session, Long deviceId) {
+        return session == null || session.getStatus() != SessionStatus.ACTIVE || !Objects.equals(session.getDeviceId(), deviceId);
     }
 
     public void blockAllSessionsForUser(String email) {
@@ -77,4 +89,3 @@ public class TokenService {
         }
     }
 }
-

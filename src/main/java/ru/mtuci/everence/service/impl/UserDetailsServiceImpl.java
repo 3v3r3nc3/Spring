@@ -6,7 +6,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.mtuci.everence.model.ApplicationUser;
-import ru.mtuci.everence.model.UserDetailsImpl;
 import ru.mtuci.everence.repository.UserRepository;
 
 import java.util.Optional;

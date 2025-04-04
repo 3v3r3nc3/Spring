@@ -1,0 +1,35 @@
+package ru.mtuci.everence.controller;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import ru.mtuci.everence.model.*;
+import ru.mtuci.everence.service.impl.TokenService;
+
+@RestController
+@RequestMapping("/auth")
+@RequiredArgsConstructor
+public class TokenRefreshController {
+
+    private final TokenService tokenService;
+
+    @PostMapping("/refresh")
+    public ResponseEntity<?> login(@RequestBody TokenRefreshRequest request) {
+        try {
+
+            TokenResponse tokenResponse = tokenService.refreshTokenPair(request.getDeviceId(), request.getRefreshToken());
+            if (tokenResponse == null) {
+                return ResponseEntity.ok("Invalid refresh token or device id");
+            }
+            return ResponseEntity.ok(tokenResponse);
+        } catch (AuthenticationException ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("There is a mistake somewhere..");
+        }
+    }
+}
