@@ -9,6 +9,7 @@ import java.util.Date;
 
 @Service
 public class SignatureHistoryServiceImpl {
+
     private final SignatureHistoryRepository repository;
 
     public SignatureHistoryServiceImpl(SignatureHistoryRepository repository) {
@@ -22,19 +23,23 @@ public class SignatureHistoryServiceImpl {
 
     private ApplicationSignatureHistory mapToHistory(ApplicationSignature signature) {
         ApplicationSignatureHistory history = new ApplicationSignatureHistory();
+
         history.setSignatureId(signature.getId());
-        Date now = new Date();
-        history.setVersionCreatedAt(now);
+        history.setVersionCreatedAt(new Date());
+
         history.setThreatName(signature.getThreatName());
         history.setFirstBytes(signature.getFirstBytes());
         history.setRemainderHash(signature.getRemainderHash());
         history.setRemainderLength(signature.getRemainderLength());
         history.setFileType(signature.getFileType());
+
         history.setOffsetStart(signature.getOffsetStart());
         history.setOffsetEnd(signature.getOffsetEnd());
         history.setDigitalSignature(signature.getDigitalSignature());
+
         history.setUpdatedAt(signature.getUpdatedAt());
         history.setStatus(signature.getStatus());
+
         return history;
     }
 }
